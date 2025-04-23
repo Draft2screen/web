@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft2Screen - منصة تحليل السيناريوهات والنصوص السينمائية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#C41E3A',
+                        secondary: '#FF4500',
+                        dark: '#121212',
+                        'dark-card': '#1E1E1E',
+                        'dark-accent': '#2A2A2A'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme-styles.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css">
+    <link rel="stylesheet" href="css/style-fixes.css">
+    <link rel="stylesheet" href="css/rtl-fixes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/print-styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Unified Header -->
+    <header class="bg-dark-card p-4 border-b border-gray-800 sticky top-0 z-20">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center text-primary text-2xl ml-2">
+                            <i class="ri-clapperboard-fill"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h1>
+                    </a>
+                </div>
+                
+                <!-- Main Navigation - Desktop -->
+                <nav class="hidden md:flex items-center space-x-1 space-x-reverse">
+                    <a href="index.html" class="px-3 py-2 rounded-lg bg-primary text-white transition-colors">
+                        <i class="ri-home-line ml-1"></i> الرئيسية
+                    </a>
+                    <a href="dashboard.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-dashboard-line ml-1"></i> لوحة التحكم
+                    </a>
+                    <a href="analysis-dashboard.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-bar-chart-box-line ml-1"></i> تحليل المشروع
+                    </a>
+                    <a href="advanced-dashboard.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-line-chart-line ml-1"></i> لوحة متقدمة
+                    </a>
+                    <a href="upload.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-upload-cloud-line ml-1"></i> رفع محتوى
+                    </a>
+                    <a href="results.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-file-chart-line ml-1"></i> النتائج
+                    </a>
+                </nav>
+                
+                <!-- Right Side Controls -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <!-- Search Button (Toggles Search Bar) -->
+                    <button id="search-toggle" class="p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors md:hidden">
+                        <i class="ri-search-line"></i>
+                    </button>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-toggle hidden sm:flex">
+                        <i class="ri-sun-line ml-2"></i> الوضع الفاتح
+                    </button>
+                    
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button class="tooltip p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors" data-tooltip="الإشعارات">
+                            <i class="ri-notification-3-line"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                        <a href="#" class="text-white hover:text-primary transition-colors">عربي</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">English</a>
+                    </div>
+                    
+                    <!-- User Menu -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 space-x-reverse">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">أ</span>
+                            </div>
+                            <span class="text-white hidden sm:inline">أحمد محمد</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 mt-2 w-48 bg-dark-card rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <div class="py-1">
+                                <a href="profile.html" class="block px-4 py-2 text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                                    <i class="ri-user-line ml-2"></i> الملف الشخصي
+                                </a>
+                                <a href="settings.html" class="block px-4 py-2 text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                                    <i class="ri-settings-3-line ml-2"></i> الإعدادات
+                                </a>
+                                <div class="border-t border-gray-700 my-1"></div>
+                                <a href="login.html" class="block px-4 py-2 text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                                    <i class="ri-logout-box-line ml-2"></i> تسجيل الخروج
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-toggle" class="p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors md:hidden">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Bar (Hidden by default on mobile) -->
+            <div id="search-bar" class="mt-4 hidden">
+                <div class="relative">
+                    <input type="text" placeholder="بحث..." class="bg-dark-accent border border-gray-700 rounded-full py-2 px-4 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full">
+                    <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400">
+                        <i class="ri-search-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden">
+        <div class="absolute left-0 top-0 h-full w-3/4 bg-dark-card transform transition-transform duration-300 translate-x-full">
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center text-primary text-2xl ml-2">
+                            <i class="ri-clapperboard-fill"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h1>
+                    </div>
+                    <button id="mobile-menu-close" class="p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+                
+                <div class="mb-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center ml-3">
+                            <span class="text-white text-lg font-bold">أ</span>
+                        </div>
+                        <div>
+                            <h2 class="text-white font-medium">أحمد محمد</h2>
+                            <p class="text-gray-400 text-sm">مخرج سينمائي</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="index.html" class="flex items-center p-3 rounded-lg bg-primary text-white transition-colors">
+                                <i class="ri-home-line ml-3 text-xl"></i>
+                                <span>الرئيسية</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-dashboard-line ml-3 text-xl"></i>
+                                <span>لوحة التحكم</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="analysis-dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-bar-chart-box-line ml-3 text-xl"></i>
+                                <span>تحليل المشروع</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="advanced-dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-line-chart-line ml-3 text-xl"></i>
+                                <span>لوحة متقدمة</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="upload.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-upload-cloud-line ml-3 text-xl"></i>
+                                <span>رفع محتوى</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="results.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-file-chart-line ml-3 text-xl"></i>
+                                <span>النتائج</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-user-line ml-3 text-xl"></i>
+                                <span>الملف الشخصي</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-settings-3-line ml-3 text-xl"></i>
+                                <span>الإعدادات</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="mt-8">
+                    <button id="mobile-theme-toggle" class="w-full flex items-center justify-center p-3 rounded-lg bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors">
+                        <i class="ri-sun-line ml-2"></i> الوضع الفاتح
+                    </button>
+                    
+                    <div class="flex items-center justify-center mt-4 space-x-4 space-x-reverse">
+                        <a href="#" class="text-white hover:text-primary transition-colors">عربي</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">English</a>
+                    </div>
+                    
+                    <a href="login.html" class="flex items-center justify-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors mt-4">
+                        <i class="ri-logout-box-line ml-3 text-xl"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-dark to-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+                        حوّل <span class="text-primary">نصوصك</span> إلى <span class="text-secondary">أفلام ناجحة</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8">
+                        منصة Draft2Screen هي أداة ذكية تستخدم الذكاء الاصطناعي لتحليل السيناريوهات والنصوص السينمائية وتقديم رؤى قيمة لتحسين جودة المحتوى وزيادة فرص نجاحه.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
+                        <a href="signup.html" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-all text-center">
+                            ابدأ مجاناً
+                        </a>
+                        <a href="#features" class="bg-dark-accent text-white font-bold py-3 px-8 rounded-lg hover:bg-opacity-80 transition-all text-center">
+                            تعرف على المميزات
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="bg-dark-card p-6 rounded-lg shadow-xl border border-gray-800 transform rotate-3 absolute -right-4 -top-4 z-0 opacity-60"></div>
+                        <div class="bg-dark-card p-6 rounded-lg shadow-xl border border-gray-800 relative z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white">
+                                        <i class="ri-file-text-line"></i>
+                                    </div>
+                                    <h3 class="text-white font-bold mr-3">تحليل النص</h3>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">مكتمل</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-dark-accent p-3 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-white">تقييم الحبكة</h4>
+                                        <div class="flex items-center">
+                                            <span class="text-primary font-bold">8.5</span>
+                                            <span class="text-gray-400 text-sm">/10</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-primary to-secondary h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-dark-accent p-3 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-white">تطور الشخصيات</h4>
+                                        <div class="flex items-center">
+                                            <span class="text-primary font-bold">7.8</span>
+                                            <span class="text-gray-400 text-sm">/10</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-primary to-secondary h-2 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-dark-accent p-3 rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="text-white">الحوار</h4>
+                                        <div class="flex items-center">
+                                            <span class="text-primary font-bold">9.2</span>
+                                            <span class="text-gray-400 text-sm">/10</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-primary to-secondary h-2 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">مميزات المنصة</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    تقدم منصة Draft2Screen مجموعة من الأدوات المتطورة لمساعدة كتاب السيناريو والمخرجين في تحسين أعمالهم
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="ri-ai-generate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تحليل ذكي للنصوص</h3>
+                    <p class="text-gray-300">
+                        استخدام تقنيات الذكاء الاصطناعي المتقدمة لتحليل النصوص وتقييم عناصر القصة مثل الحبكة والشخصيات والحوار.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="ri-bar-chart-grouped-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تحليلات مفصلة</h3>
+                    <p class="text-gray-300">
+                        رؤى تفصيلية حول نقاط القوة والضعف في النص، مع اقتراحات محددة للتحسين بناءً على معايير النجاح في صناعة السينما.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="ri-group-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تحليل الجمهور</h3>
+                    <p class="text-gray-300">
+                        تحديد الفئات المستهدفة المحتملة للعمل وتقديم توصيات لزيادة جاذبية المحتوى لهذه الفئات.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="ri-file-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تقارير شاملة</h3>
+                    <p class="text-gray-300">
+                        إنشاء تقارير مفصلة قابلة للتنزيل تتضمن جميع التحليلات والتوصيات، مع إمكانية مشاركتها مع فريق العمل.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="ri-history-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تتبع التحسينات</h3>
+                    <p class="text-gray-300">
+                        متابعة التغييرات والتحسينات على النص عبر الوقت، مع مقارنة الإصدارات المختلفة لتقييم التقدم.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="ri-upload-cloud-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">دعم متعدد الصيغ</h3>
+                    <p class="text-gray-300">
+                        إمكانية تحليل النصوص بصيغ متعددة مثل PDF وWord وملفات النصوص المخصصة لكتابة السيناريو.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-16 bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">كيف تعمل المنصة</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    عملية بسيطة وفعالة لتحليل وتحسين نصوصك السينمائية
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border border-gray-800 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-2xl mb-6 mx-auto">
+                        <span>1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">رفع النص</h3>
+                    <p class="text-gray-300">
+                        قم برفع ملف النص الخاص بك بأي صيغة مدعومة على المنصة.
+                    </p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border border-gray-800 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-2xl mb-6 mx-auto">
+                        <span>2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">التحليل الآلي</h3>
+                    <p class="text-gray-300">
+                        تقوم المنصة بتحليل النص باستخدام خوارزميات الذكاء الاصطناعي المتقدمة.
+                    </p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border border-gray-800 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-2xl mb-6 mx-auto">
+                        <span>3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">مراجعة النتائج</h3>
+                    <p class="text-gray-300">
+                        استعرض التحليلات والتوصيات المفصلة على لوحة التحكم الخاصة بك.
+                    </p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border border-gray-800 text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white text-2xl mb-6 mx-auto">
+                        <span>4</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تحسين النص</h3>
+                    <p class="text-gray-300">
+                        استخدم التوصيات لتحسين النص وأعد التحليل لمتابعة التقدم.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">آراء المستخدمين</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    تعرف على تجارب كتاب السيناريو والمخرجين مع منصة Draft2Screen
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold ml-3">
+                            م
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold">محمد العلي</h4>
+                            <p class="text-gray-400 text-sm">كاتب سيناريو</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        "ساعدتني منصة Draft2Screen في تحسين حبكة فيلمي الأخير بشكل كبير. التحليلات المفصلة والتوصيات الذكية كانت دقيقة وقيمة للغاية."
+                    </p>
+                    <div class="flex mt-4">
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold ml-3">
+                            س
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold">سارة الأحمد</h4>
+                            <p class="text-gray-400 text-sm">مخرجة</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        "أداة رائعة لأي مخرج يريد تقييم نصوصه قبل البدء في الإنتاج. وفرت علي الكثير من الوقت والجهد في مرحلة ما قبل الإنتاج."
+                    </p>
+                    <div class="flex mt-4">
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-half-fill text-yellow-500"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-dark-card p-6 rounded-lg shadow-lg border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold ml-3">
+                            ف
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold">فهد العمري</h4>
+                            <p class="text-gray-400 text-sm">منتج</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        "كمنتج، أصبحت المنصة جزءاً أساسياً من عملية تقييم المشاريع الجديدة. تساعدني في اتخاذ قرارات أفضل بشأن النصوص التي نستثمر فيها."
+                    </p>
+                    <div class="flex mt-4">
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                        <i class="ri-star-fill text-yellow-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-16 bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">خطط الاشتراك</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    اختر الخطة المناسبة لاحتياجاتك
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">الخطة الأساسية</h3>
+                        <div class="flex items-center justify-center">
+                            <span class="text-4xl font-bold text-white">مجاناً</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">للمبتدئين</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل نص واحد شهرياً</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل أساسي للحبكة والشخصيات</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تقرير مختصر</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="ri-close-line text-red-500 ml-2"></i>
+                            <span>تحليل الجمهور المستهدف</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="ri-close-line text-red-500 ml-2"></i>
+                            <span>مقارنة الإصدارات</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="signup.html" class="block w-full bg-dark-accent text-white text-center font-bold py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                        ابدأ الآن
+                    </a>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border-2 border-primary transform scale-105 relative">
+                    <div class="absolute -top-4 right-1/2 transform translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold">
+                        الأكثر شعبية
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">الخطة الاحترافية</h3>
+                        <div class="flex items-center justify-center">
+                            <span class="text-4xl font-bold text-white">$29</span>
+                            <span class="text-gray-400 mr-1">/شهرياً</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">للمحترفين</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل 5 نصوص شهرياً</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل متقدم للحبكة والشخصيات والحوار</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تقرير مفصل مع توصيات</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل الجمهور المستهدف</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>مقارنة الإصدارات (حتى 3 إصدارات)</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="signup.html" class="block w-full bg-gradient-to-r from-primary to-secondary text-white text-center font-bold py-3 rounded-lg hover:opacity-90 transition-colors">
+                        اشترك الآن
+                    </a>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="bg-dark p-6 rounded-lg shadow-lg border border-gray-800 hover:border-primary transition-all duration-300">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">خطة المؤسسات</h3>
+                        <div class="flex items-center justify-center">
+                            <span class="text-4xl font-bold text-white">$99</span>
+                            <span class="text-gray-400 mr-1">/شهرياً</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">للاستوديوهات وشركات الإنتاج</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل غير محدود للنصوص</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل شامل لجميع عناصر النص</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تقارير مخصصة ومفصلة</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>تحليل متقدم للجمهور المستهدف</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>مقارنة غير محدودة للإصدارات</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="ri-check-line text-green-500 ml-2"></i>
+                            <span>دعم فني على مدار الساعة</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="signup.html" class="block w-full bg-dark-accent text-white text-center font-bold py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                        تواصل معنا
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">ابدأ في تحسين نصوصك اليوم</h2>
+            <p class="text-xl text-white mb-8 max-w-3xl mx-auto">
+                انضم إلى آلاف الكتاب والمخرجين الذين يستخدمون Draft2Screen لتحسين أعمالهم وزيادة فرص نجاحها
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
+                <a href="signup.html" class="bg-white text-primary font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
+                    إنشاء حساب مجاني
+                </a>
+                <a href="#features" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors">
+                    معرفة المزيد
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-10 h-10 flex items-center justify-center text-primary text-2xl mr-2">
+                        <i class="ri-clapperboard-fill"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h2>
+                </div>
+                
+                <div class="flex space-x-6 space-x-reverse mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-twitter-x-fill text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-instagram-fill text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-linkedin-box-fill text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-youtube-fill text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-gray-400 text-sm">
+                    © 2025 Draft2Screen. جميع الحقوق محفوظة
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6">
+                <div class="flex flex-wrap justify-center space-x-8 space-x-reverse">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">عن المنصة</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">الخدمات</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">الأسعار</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">الأسئلة الشائعة</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">سياسة الخصوصية</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">شروط الاستخدام</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">اتصل بنا</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/script.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/fix-links.js"></script>
+    <script src="js/header-functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج التحليل - Draft2Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#C41E3A',
+                        secondary: '#FF4500',
+                        dark: '#121212',
+                        'dark-card': '#1E1E1E',
+                        'dark-accent': '#2A2A2A'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme-styles.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css">
+    <link rel="stylesheet" href="css/style-fixes.css">
+    <link rel="stylesheet" href="css/rtl-fixes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/print-styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Unified Header -->
+    <header class="bg-dark-card p-4 border-b border-gray-800 sticky top-0 z-20">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center text-primary text-2xl ml-2">
+                            <i class="ri-clapperboard-fill"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h1>
+                    </a>
+                </div>
+                
+                <!-- Main Navigation - Desktop -->
+                <nav class="hidden md:flex items-center space-x-1 space-x-reverse">
+                    <a href="index.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-home-line ml-1"></i> الرئيسية
+                    </a>
+                    <a href="dashboard.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-dashboard-line ml-1"></i> لوحة التحكم
+                    </a>
+                    <a href="analysis-dashboard.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-bar-chart-box-line ml-1"></i> تحليل المشروع
+                    </a>
+                    <a href="advanced-dashboard.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-line-chart-line ml-1"></i> لوحة متقدمة
+                    </a>
+                    <a href="upload.html" class="px-3 py-2 rounded-lg text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                        <i class="ri-upload-cloud-line ml-1"></i> رفع محتوى
+                    </a>
+                    <a href="results.html" class="px-3 py-2 rounded-lg bg-primary text-white transition-colors">
+                        <i class="ri-file-chart-line ml-1"></i> النتائج
+                    </a>
+                </nav>
+                
+                <!-- Right Side Controls -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <!-- Search Button (Toggles Search Bar) -->
+                    <button id="search-toggle" class="p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors md:hidden">
+                        <i class="ri-search-line"></i>
+                    </button>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-toggle hidden sm:flex">
+                        <i class="ri-sun-line ml-2"></i> الوضع الفاتح
+                    </button>
+                    
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button class="tooltip p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors" data-tooltip="الإشعارات">
+                            <i class="ri-notification-3-line"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                        <a href="#" class="text-white hover:text-primary transition-colors">عربي</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">English</a>
+                    </div>
+                    
+                    <!-- User Menu -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 space-x-reverse">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">أ</span>
+                            </div>
+                            <span class="text-white hidden sm:inline">أحمد محمد</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 mt-2 w-48 bg-dark-card rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <div class="py-1">
+                                <a href="profile.html" class="block px-4 py-2 text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                                    <i class="ri-user-line ml-2"></i> الملف الشخصي
+                                </a>
+                                <a href="settings.html" class="block px-4 py-2 text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                                    <i class="ri-settings-3-line ml-2"></i> الإعدادات
+                                </a>
+                                <div class="border-t border-gray-700 my-1"></div>
+                                <a href="login.html" class="block px-4 py-2 text-gray-300 hover:bg-dark-accent hover:text-white transition-colors">
+                                    <i class="ri-logout-box-line ml-2"></i> تسجيل الخروج
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-toggle" class="p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors md:hidden">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Bar (Hidden by default on mobile) -->
+            <div id="search-bar" class="mt-4 hidden">
+                <div class="relative">
+                    <input type="text" placeholder="بحث..." class="bg-dark-accent border border-gray-700 rounded-full py-2 px-4 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-full">
+                    <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400">
+                        <i class="ri-search-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden">
+        <div class="absolute left-0 top-0 h-full w-3/4 bg-dark-card transform transition-transform duration-300 translate-x-full">
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center text-primary text-2xl ml-2">
+                            <i class="ri-clapperboard-fill"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h1>
+                    </div>
+                    <button id="mobile-menu-close" class="p-2 rounded-full bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+                
+                <div class="mb-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center ml-3">
+                            <span class="text-white text-lg font-bold">أ</span>
+                        </div>
+                        <div>
+                            <h2 class="text-white font-medium">أحمد محمد</h2>
+                            <p class="text-gray-400 text-sm">مخرج سينمائي</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="index.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-home-line ml-3 text-xl"></i>
+                                <span>الرئيسية</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-dashboard-line ml-3 text-xl"></i>
+                                <span>لوحة التحكم</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="analysis-dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-bar-chart-box-line ml-3 text-xl"></i>
+                                <span>تحليل المشروع</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="advanced-dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-line-chart-line ml-3 text-xl"></i>
+                                <span>لوحة متقدمة</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="upload.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-upload-cloud-line ml-3 text-xl"></i>
+                                <span>رفع محتوى</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="results.html" class="flex items-center p-3 rounded-lg bg-primary text-white transition-colors">
+                                <i class="ri-file-chart-line ml-3 text-xl"></i>
+                                <span>النتائج</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-user-line ml-3 text-xl"></i>
+                                <span>الملف الشخصي</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors">
+                                <i class="ri-settings-3-line ml-3 text-xl"></i>
+                                <span>الإعدادات</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="mt-8">
+                    <button id="mobile-theme-toggle" class="w-full flex items-center justify-center p-3 rounded-lg bg-dark-accent text-gray-300 hover:bg-gray-700 transition-colors">
+                        <i class="ri-sun-line ml-2"></i> الوضع الفاتح
+                    </button>
+                    
+                    <div class="flex items-center justify-center mt-4 space-x-4 space-x-reverse">
+                        <a href="#" class="text-white hover:text-primary transition-colors">عربي</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">English</a>
+                    </div>
+                    
+                    <a href="login.html" class="flex items-center justify-center p-3 rounded-lg text-gray-300 hover:bg-dark-accent transition-colors mt-4">
+                        <i class="ri-logout-box-line ml-3 text-xl"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- Project Title -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">عملك: (خوالص)</h2>
+                <p class="text-xl text-primary">صار مؤهل للتصفية!</p>
+            </div>
+            
+            <!-- Results Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Chart Card -->
+                <div class="bg-dark-card rounded-lg shadow-xl overflow-hidden border border-gray-800">
+                    <div class="p-4 border-b border-gray-800">
+                        <h3 class="text-lg font-medium text-white">توزيع الأحداث</h3>
+                    </div>
+                    <div class="p-4">
+                        <div id="eventsChart" class="w-full h-64"></div>
+                    </div>
+                </div>
+                
+                <!-- Ratings Card -->
+                <div class="bg-dark-card rounded-lg shadow-xl overflow-hidden border border-gray-800">
+                    <div class="p-4 border-b border-gray-800">
+                        <h3 class="text-lg font-medium text-white">التقييمات</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm text-gray-300">التقييم العام</span>
+                                    <span class="text-sm text-white">8.5 / 10</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm text-gray-300">نقاط القوة</span>
+                                    <span class="text-sm text-white">الحبكة المتماسكة</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm text-gray-300">نقاط الضعف</span>
+                                    <span class="text-sm text-white">لا يوجد</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm text-gray-300">التقييم النهائي</span>
+                                    <span class="text-sm text-white">8.5 / 10</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Analysis -->
+            <div class="bg-dark-card rounded-lg shadow-xl overflow-hidden border border-gray-800 mb-8">
+                <div class="p-6 border-b border-gray-800">
+                    <h3 class="text-xl font-bold text-white">التحليل التفصيلي</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-lg font-medium text-primary mb-2">القصة والحبكة</h4>
+                            <p class="text-gray-300">تتميز القصة بتماسك قوي وتسلسل منطقي للأحداث. الحبكة مبنية بشكل جيد مع تصاعد درامي متقن يحافظ على اهتمام المشاهد من البداية إلى النهاية. نقطة التحول في منتصف القصة مؤثرة وتغير مسار الأحداث بشكل مقنع.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-medium text-primary mb-2">الشخصيات</h4>
+                            <p class="text-gray-300">الشخصيات مرسومة بعمق وأبعاد نفسية واضحة. الشخصية الرئيسية تمر برحلة تطور مقنعة، والشخصيات الثانوية تدعم القصة بشكل جيد دون أن تطغى على المسار الرئيسي. هناك تنوع في الشخصيات يعكس واقعية المجتمع المصور.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-medium text-primary mb-2">الحوار</h4>
+                            <p class="text-gray-300">الحوار طبيعي ومتدفق، يعكس شخصية كل متحدث بأسلوبه الخاص. اللغة المستخدمة تناسب السياق والبيئة، مع توازن جيد بين الحوار المباشر والإيماءات الضمنية. بعض المشاهد تعتمد على الصمت بشكل فعال لنقل المشاعر.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-medium text-primary mb-2">الإيقاع والتوقيت</h4>
+                            <p class="text-gray-300">إيقاع القصة متوازن بشكل عام، مع تناوب جيد بين المشاهد السريعة والبطيئة. الفصل الثاني يمكن تقصيره قليلاً لتحسين التدفق العام. نهاية القصة قوية ومؤثرة، تترك انطباعاً دائماً لدى المشاهد.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-medium text-primary mb-2">الموضوعات والرسائل</h4>
+                            <p class="text-gray-300">تتناول القصة موضوعات عميقة مثل الهوية والانتماء بطريقة غير مباشرة وذكية. الرسائل الاجتماعية مدمجة بشكل طبيعي في سياق القصة دون وعظ مباشر. هناك طبقات متعددة من المعاني تسمح بتفسيرات مختلفة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="bg-dark-card rounded-lg shadow-xl overflow-hidden border border-gray-800 mb-8">
+                <div class="p-6 border-b border-gray-800">
+                    <h3 class="text-xl font-bold text-white">التوصيات والاقتراحات</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-green-100 rounded-full text-green-600 mt-1">
+                                <i class="ri-check-line"></i>
+                            </div>
+                            <div class="mr-3">
+                                <h4 class="text-white font-medium">الحفاظ على قوة الحبكة الرئيسية</h4>
+                                <p class="text-gray-400">الحبكة الرئيسية قوية ومتماسكة، استمر في هذا النهج مع الحفاظ على التوازن بين العناصر الدرامية والتشويقية.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-yellow-100 rounded-full text-yellow-600 mt-1">
+                                <i class="ri-error-warning-line"></i>
+                            </div>
+                            <div class="mr-3">
+                                <h4 class="text-white font-medium">تقصير الفصل الثاني</h4>
+                                <p class="text-gray-400">يمكن تقصير الفصل الثاني بحوالي 10-15% لتحسين الإيقاع العام للقصة وتجنب الشعور بالبطء في منتصف العمل.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full text-blue-600 mt-1">
+                                <i class="ri-lightbulb-line"></i>
+                            </div>
+                            <div class="mr-3">
+                                <h4 class="text-white font-medium">تعزيز الشخصية الثانوية</h4>
+                                <p class="text-gray-400">شخصية "سارة" يمكن تطويرها بشكل أكبر لإضافة بعد إضافي للقصة، خاصة في علاقتها مع البطل الرئيسي.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 rounded-full text-purple-600 mt-1">
+                                <i class="ri-magic-line"></i>
+                            </div>
+                            <div class="mr-3">
+                                <h4 class="text-white font-medium">إضافة لمسة بصرية مميزة</h4>
+                                <p class="text-gray-400">يمكن إضافة عنصر بصري مميز يتكرر خلال العمل ليصبح رمزاً مرئياً للموضوع الرئيسي، مما يعزز الهوية البصرية للفيلم.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex justify-center">
+                <a href="#" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors font-medium">
+                    تواصل مع موجه
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-gray-800 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-10 h-10 flex items-center justify-center text-primary text-2xl mr-2">
+                        <i class="ri-clapperboard-fill"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h2>
+                </div>
+                
+                <div class="flex space-x-6 space-x-reverse mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-twitter-x-fill text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-instagram-fill text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-linkedin-box-fill text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="ri-youtube-fill text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-gray-400 text-sm">
+                    © 2025 Draft2Screen. جميع الحقوق محفوظة
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6">
+                <div class="flex flex-wrap justify-center space-x-8 space-x-reverse">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">عن المنصة</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">الخدمات</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">الأسعار</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">الأسئلة الشائعة</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">سياسة الخصوصية</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">شروط الاستخدام</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm mb-2">اتصل بنا</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/script.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/fix-links.js"></script>
+    <script src="js/header-functions.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Events Chart
+            const eventsChart = echarts.init(document.getElementById('eventsChart'));
+            
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['مشاهد', 'حوارات'],
+                    textStyle: {
+                        color: '#D1D5DB'
+                    },
+                    right: 10,
+                    top: 0
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['0', '15', '30', '45', '60', '75', '90'],
+                    axisLine: {
+                        lineStyle: {
+                            color: '#4B5563'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#9CA3AF'
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#4B5563'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#9CA3AF'
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#374151'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'مشاهد',
+                        type: 'bar',
+                        data: [15, 20, 25, 30, 25, 20, 15],
+                        itemStyle: {
+                            color: '#818CF8'
+                        }
+                    },
+                    {
+                        name: 'حوارات',
+                        type: 'bar',
+                        data: [10, 15, 20, 25, 20, 15, 10],
+                        itemStyle: {
+                            color: '#F87171'
+                        }
+                    }
+                ]
+            };
+            
+            eventsChart.setOption(option);
+            
+            window.addEventListener('resize', function() {
+                eventsChart.resize();
+            });
+        });
+    </script>
+</body>
+</html>

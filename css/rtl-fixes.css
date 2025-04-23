@@ -1,0 +1,195 @@
+/* RTL specific fixes for Draft2Screen */
+
+/* Fix for RTL text alignment */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* Fix for RTL margins and paddings */
+[dir="rtl"] .ml-1 {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .mr-1 {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+[dir="rtl"] .pl-1 {
+  padding-left: 0;
+  padding-right: 0.25rem;
+}
+
+[dir="rtl"] .pl-2 {
+  padding-left: 0;
+  padding-right: 0.5rem;
+}
+
+[dir="rtl"] .pl-3 {
+  padding-left: 0;
+  padding-right: 0.75rem;
+}
+
+[dir="rtl"] .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .pr-1 {
+  padding-right: 0;
+  padding-left: 0.25rem;
+}
+
+[dir="rtl"] .pr-2 {
+  padding-right: 0;
+  padding-left: 0.5rem;
+}
+
+[dir="rtl"] .pr-3 {
+  padding-right: 0;
+  padding-left: 0.75rem;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+/* Fix for RTL flexbox */
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+/* Fix for RTL transforms */
+[dir="rtl"] .translate-x-full {
+  transform: translateX(-100%);
+}
+
+[dir="rtl"] .-translate-x-full {
+  transform: translateX(100%);
+}
+
+/* Fix for RTL borders */
+[dir="rtl"] .border-l {
+  border-left: none;
+  border-right: 1px solid;
+}
+
+[dir="rtl"] .border-r {
+  border-right: none;
+  border-left: 1px solid;
+}
+
+/* Fix for RTL rounded corners */
+[dir="rtl"] .rounded-l {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+[dir="rtl"] .rounded-r {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+/* Fix for RTL text alignment classes */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Fix for RTL absolute positioning */
+[dir="rtl"] .left-0 {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .right-0 {
+  right: auto;
+  left: 0;
+}
+
+/* Fix for RTL icons */
+[dir="rtl"] .ri-arrow-right-s-line:before {
+  content: "\ea64"; /* ri-arrow-left-s-line */
+}
+
+[dir="rtl"] .ri-arrow-left-s-line:before {
+  content: "\ea6a"; /* ri-arrow-right-s-line */
+}
+
+/* Fix for RTL input fields with icons */
+[dir="rtl"] .pr-10 {
+  padding-right: 1rem;
+  padding-left: 2.5rem;
+}
+
+[dir="rtl"] .pl-10 {
+  padding-left: 1rem;
+  padding-right: 2.5rem;
+}
+
+/* Fix for RTL dropdown positioning */
+[dir="rtl"] .group .absolute.left-0 {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .group .absolute.right-0 {
+  right: auto;
+  left: 0;
+}
+
+/* Fix for RTL mobile menu */
+@media (max-width: 768px) {
+  [dir="rtl"] #mobile-menu .transform {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+  }
+  
+  [dir="rtl"] #mobile-menu .transform.translate-x-full {
+    transform: translateX(100%);
+  }
+  
+  [dir="rtl"] #mobile-menu .transform:not(.translate-x-full) {
+    transform: translateX(0);
+  }
+}

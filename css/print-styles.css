@@ -1,0 +1,96 @@
+/* Print styles for Draft2Screen */
+@media print {
+  /* Hide elements not needed for printing */
+  header, 
+  #mobile-menu, 
+  .theme-toggle, 
+  button:not([type="submit"]),
+  .notification-dot,
+  #search-bar,
+  #search-toggle,
+  #mobile-menu-toggle {
+    display: none !important;
+  }
+  
+  /* Basic page setup */
+  body {
+    background-color: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  /* Ensure content is visible */
+  .card, 
+  .bg-dark-card, 
+  .bg-dark-accent {
+    background-color: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+  
+  /* Text colors */
+  h1, h2, h3, h4, h5, h6, p, span, td, th {
+    color: black !important;
+  }
+  
+  /* Links */
+  a {
+    color: #0000EE !important;
+    text-decoration: underline !important;
+  }
+  
+  /* Tables */
+  table {
+    border-collapse: collapse;
+  }
+  
+  table th,
+  table td {
+    border: 1px solid #ddd !important;
+  }
+  
+  /* Add page breaks */
+  h1, h2, h3, 
+  table, 
+  img, 
+  .card {
+    page-break-inside: avoid;
+  }
+  
+  /* Remove animations and transitions */
+  * {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  /* Add URL after links */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 90%;
+  }
+  
+  /* Don't add URL after internal links */
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after {
+    content: "";
+  }
+  
+  /* Ensure proper margins */
+  @page {
+    margin: 2cm;
+  }
+  
+  /* Add logo to each page */
+  @page {
+    @top-center {
+      content: "Draft2Screen";
+      font-weight: bold;
+    }
+    @bottom-center {
+      content: "Page " counter(page);
+    }
+  }
+}

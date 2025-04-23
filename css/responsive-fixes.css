@@ -1,0 +1,175 @@
+/* Responsive design fixes for all pages */
+
+/* Mobile styles */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 50;
+    height: 100vh;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .mr-64 {
+    margin-right: 0 !important;
+  }
+  
+  .mobile-menu-button {
+    display: block !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  .card {
+    padding: 1rem !important;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .sidebar {
+    width: 240px;
+  }
+  
+  .mr-64 {
+    margin-right: 240px !important;
+  }
+  
+  .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Mobile menu button */
+.mobile-menu-button {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: white;
+  z-index: 40;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+/* Chart responsiveness */
+@media (max-width: 768px) {
+  .h-80 {
+    height: 200px !important;
+  }
+  
+  .h-64 {
+    height: 180px !important;
+  }
+  
+  .h-48 {
+    height: 150px !important;
+  }
+}
+
+/* Form elements responsiveness */
+@media (max-width: 640px) {
+  input, select, textarea, button {
+    width: 100%;
+  }
+  
+  .flex-col-mobile {
+    flex-direction: column !important;
+  }
+  
+  .space-y-mobile > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  .w-full-mobile {
+    width: 100% !important;
+  }
+}
+
+/* Fix for tables on mobile */
+@media (max-width: 640px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Fix for theme toggle button on mobile */
+@media (max-width: 640px) {
+  .theme-toggle {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Unified header responsive fixes */
+@media (max-width: 768px) {
+  .header-nav {
+    display: none;
+  }
+  
+  .header-mobile-controls {
+    display: flex;
+  }
+}
+
+/* Authentication pages header fixes */
+.auth-header {
+  background-color: transparent;
+  border-bottom: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.auth-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.auth-header-nav a {
+  color: white;
+  margin-left: 1rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.auth-header-nav a:hover {
+  opacity: 1;
+}

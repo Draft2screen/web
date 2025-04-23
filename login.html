@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - Draft2Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme-styles.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#C41E3A',
+                        secondary: '#FF4500',
+                        dark: '#121212',
+                        'dark-card': '#1E1E1E',
+                        'dark-accent': '#2A2A2A'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="dark-theme bg-black min-h-screen">
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black to-gray-900"></div>
+        <div class="absolute inset-0 opacity-30" style="background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"><path fill=\"%23C41E3A\" fill-opacity=\"0.2\" d=\"M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z\"></path></svg>'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;"></div>
+    </div>
+    
+    <!-- Unified Header - Auth Version -->
+    <header class="auth-header">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center">
+                    <div class="w-12 h-12 flex items-center justify-center text-primary text-3xl mr-2">
+                        <i class="ri-clapperboard-fill"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold text-white">Draft<span class="text-primary">2</span>Screen</h1>
+                </a>
+                
+                <nav class="auth-header-nav">
+                    <a href="index.html"><i class="ri-home-line ml-1"></i> الرئيسية</a>
+                    <a href="dashboard.html"><i class="ri-dashboard-line ml-1"></i> لوحة التحكم</a>
+                    <a href="signup.html"><i class="ri-user-add-line ml-1"></i> إنشاء حساب</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container mx-auto px-4 z-10 relative pt-24">
+        <div class="max-w-md mx-auto">
+            <!-- Login Card -->
+            <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-lg shadow-xl p-8 border border-gray-700">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-white">تسجيل الدخول</h2>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="text-white hover:text-primary transition-colors">عربي</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">English</a>
+                    </div>
+                </div>
+                
+                <form action="#" method="POST">
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">البريد الإلكتروني</label>
+                        <div class="relative">
+                            <input type="email" id="email" name="email" class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-medium text-gray-300 mb-1">كلمة المرور</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            <div class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400">
+                                <i class="ri-lock-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" name="remember" class="custom-checkbox">
+                            <label for="remember" class="custom-checkbox-label text-sm text-gray-300">تذكرني</label>
+                        </div>
+                        <a href="#" class="text-sm text-primary hover:text-white transition-colors">نسيت كلمة المرور؟</a>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-opacity-90 transition-colors font-medium">
+                        تسجيل الدخول
+                    </button>
+                </form>
+                
+                <div class="relative flex items-center justify-center my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-700"></div>
+                    </div>
+                    <div class="relative px-4 bg-gray-900 text-sm text-gray-400">أو</div>
+                </div>
+                
+                <div class="space-y-3">
+                    <button class="w-full flex items-center justify-center bg-white text-gray-800 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5 ml-2">
+                        <span>تسجيل الدخول باستخدام Google</span>
+                    </button>
+                    
+                    <button class="w-full flex items-center justify-center bg-black text-white py-3 rounded-lg hover:bg-gray-900 transition-colors border border-gray-700">
+                        <i class="ri-apple-fill text-xl ml-2"></i>
+                        <span>تسجيل الدخول باستخدام Apple</span>
+                    </button>
+                </div>
+                
+                <p class="text-center text-sm text-gray-400 mt-6">
+                    ليس لديك حساب؟ <a href="signup.html" class="text-primary hover:text-white transition-colors">إنشاء حساب جديد</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/fix-links.js"></script>
+    <script src="js/header-functions.js"></script>
+</body>
+</html>

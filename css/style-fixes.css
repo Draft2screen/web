@@ -1,0 +1,217 @@
+/* Additional CSS fixes for unified header implementation */
+
+/* Fix for auth pages header */
+.auth-header {
+  padding: 1rem 0;
+}
+
+.auth-header-nav a {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.auth-header-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+/* Fix for mobile menu positioning */
+@media (max-width: 768px) {
+  #mobile-menu .transform {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .auth-header-nav {
+    display: none;
+  }
+  
+  .auth-header .container {
+    padding: 0 1rem;
+  }
+}
+
+/* Fix for dropdown menu on touch devices */
+@media (hover: none) {
+  .group:hover .invisible {
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  
+  .group .visible {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Fix for active page highlighting */
+nav a.bg-primary {
+  color: white !important;
+}
+
+/* Fix for search bar positioning */
+#search-bar {
+  transition: all 0.3s ease;
+}
+
+/* Fix for notification dot positioning */
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  top: 2px;
+  right: 2px;
+}
+
+/* Fix for theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Fix for user dropdown menu */
+.group:hover .opacity-0 {
+  opacity: 1 !important;
+}
+
+.group:hover .invisible {
+  visibility: visible !important;
+}
+
+/* Fix for tooltip positioning */
+.tooltip::after {
+  z-index: 50;
+}
+
+/* Fix for mobile menu animation */
+#mobile-menu .transform {
+  transition: transform 0.3s ease;
+}
+
+/* Fix for custom checkbox in dark mode */
+.custom-checkbox-label:before {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.custom-checkbox:checked + .custom-checkbox-label:before {
+  background-color: var(--accent-color);
+}
+
+/* Fix for consistent card styling */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+/* Fix for consistent button styling */
+button {
+  transition: all 0.3s ease;
+}
+
+/* Fix for consistent form element styling */
+input, select, textarea {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Fix for consistent table styling */
+table th {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+table td {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Fix for consistent badge styling */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+}
+
+/* Fix for consistent link styling */
+a {
+  transition: all 0.3s ease;
+}
+
+/* Fix for consistent icon styling */
+i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix for RTL specific issues */
+[dir="rtl"] .space-x-reverse > * + * {
+  margin-right: 0.25rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .ml-3 {
+  margin-left: 0.75rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .mr-3 {
+  margin-right: 0.75rem;
+  margin-left: 0;
+}
+
+/* Fix for consistent spacing */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
